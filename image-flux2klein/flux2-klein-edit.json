@@ -1,0 +1,782 @@
+{
+  "id": "b1f2c3d4-e5a6-47b8-9c0d-1e2f3a4b5c6d",
+  "revision": 0,
+  "last_node_id": 15,
+  "last_link_id": 14,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "MarkdownNote",
+      "pos": [
+        -460,
+        -280
+      ],
+      "size": [
+        430,
+        340
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "How to use",
+      "properties": {},
+      "widgets_values": [
+        "## Image Edit \u2014 klein (multi-reference)\n\n1. **Load Image** (red, group *image 1*) \u2014 drop the reference picture. It ships with `example.png` so the graph runs out of the box.\n2. **Prompt** \u2014 describe the edit inside the **Image Edit** node.\n3. **Reference images** toggle \u2014 switch *image 2* \u2026 *image 10* on to use more reference pictures. Each toggle enables one Load Image group on the left.\n4. **Color Match** (orange) \u2014 regrades the result to image 1's lighting/colors so edits blend in. Lower `strength` (or 0) to disable.\n5. Press **Run** \u2014 the result is saved in **Save Image**.\n\nFLUX.2 klein 9B (uncensored) \u2014 fast text \u2192 image + up to 10 reference images."
+      ],
+      "color": "#333",
+      "bgcolor": "#444"
+    },
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        280
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 2,
+      "type": "Flux2KleinImageEdit",
+      "pos": [
+        30,
+        190
+      ],
+      "size": [
+        480,
+        760
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reference_image1",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "reference_image2",
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "name": "reference_image3",
+          "type": "IMAGE",
+          "link": 4
+        },
+        {
+          "name": "reference_image4",
+          "type": "IMAGE",
+          "link": 5
+        },
+        {
+          "name": "reference_image5",
+          "type": "IMAGE",
+          "link": 6
+        },
+        {
+          "name": "reference_image6",
+          "type": "IMAGE",
+          "link": 7
+        },
+        {
+          "name": "reference_image7",
+          "type": "IMAGE",
+          "link": 8
+        },
+        {
+          "name": "reference_image8",
+          "type": "IMAGE",
+          "link": 9
+        },
+        {
+          "name": "reference_image9",
+          "type": "IMAGE",
+          "link": 10
+        },
+        {
+          "name": "reference_image10",
+          "type": "IMAGE",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "title": "Image Edit (Flux.2 Klein 9B)",
+      "properties": {
+        "Node name for S&R": "Flux2KleinImageEdit"
+      },
+      "widgets_values": [
+        "Flux2-Klein-9B-True-V3-Q8_0.gguf",
+        "flux2-klein-9b-uncensored-q8_0.gguf",
+        "flux2-vae.safetensors",
+        "Change the camera angle to a first-person driver's perspective looking through the steering wheel at the dashboard and windshield, maintaining the same white minimalist interior style and lighting",
+        20,
+        5,
+        192774551144773,
+        "randomize"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 3,
+      "type": "SaveImage",
+      "pos": [
+        560,
+        190
+      ],
+      "size": [
+        440,
+        620
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 14
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "Flux2-Klein-edit"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        750
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 6,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        1220
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 7,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        1690
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            5
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 8,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        2160
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 9,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        2630
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 10,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        3100
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            8
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 11,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        3570
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 12,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        4040
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            10
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 13,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        4510
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 14,
+      "type": "Fast Groups Bypasser (rgthree)",
+      "pos": [
+        30,
+        -280
+      ],
+      "size": [
+        250,
+        330
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "title": "Reference images",
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "^image",
+        "showNav": true,
+        "sort": "position",
+        "toggleRestriction": "default"
+      },
+      "color": "#333",
+      "bgcolor": "#444"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      3,
+      5,
+      0,
+      2,
+      1,
+      "IMAGE"
+    ],
+    [
+      4,
+      6,
+      0,
+      2,
+      2,
+      "IMAGE"
+    ],
+    [
+      5,
+      7,
+      0,
+      2,
+      3,
+      "IMAGE"
+    ],
+    [
+      6,
+      8,
+      0,
+      2,
+      4,
+      "IMAGE"
+    ],
+    [
+      7,
+      9,
+      0,
+      2,
+      5,
+      "IMAGE"
+    ],
+    [
+      8,
+      10,
+      0,
+      2,
+      6,
+      "IMAGE"
+    ],
+    [
+      9,
+      11,
+      0,
+      2,
+      7,
+      "IMAGE"
+    ],
+    [
+      10,
+      12,
+      0,
+      2,
+      8,
+      "IMAGE"
+    ],
+    [
+      11,
+      13,
+      0,
+      2,
+      9,
+      "IMAGE"
+    ],
+    [
+      14,
+      2,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "image 1",
+      "bounding": [
+        -460,
+        160,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "image 2",
+      "bounding": [
+        -460,
+        630,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "image 3",
+      "bounding": [
+        -460,
+        1100,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "image 4",
+      "bounding": [
+        -460,
+        1570,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "image 5",
+      "bounding": [
+        -460,
+        2040,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 6,
+      "title": "image 6",
+      "bounding": [
+        -460,
+        2510,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 7,
+      "title": "image 7",
+      "bounding": [
+        -460,
+        2980,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 8,
+      "title": "image 8",
+      "bounding": [
+        -460,
+        3450,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 9,
+      "title": "image 9",
+      "bounding": [
+        -460,
+        3920,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 10,
+      "title": "image 10",
+      "bounding": [
+        -460,
+        4390,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.55,
+      "offset": [
+        1478.181818181818,
+        498.18181818181813
+      ]
+    }
+  },
+  "version": 0.4
+}

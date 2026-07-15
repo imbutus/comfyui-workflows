@@ -1,0 +1,168 @@
+{
+  "id": "d1e70b2c-fs01-4a11-9e20-ttsclone00001",
+  "revision": 0,
+  "last_node_id": 4,
+  "last_link_id": 2,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "title": "How to use",
+      "pos": [
+        -1180,
+        -290
+      ],
+      "size": [
+        660,
+        250
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "TTS + VOICE CLONE (Fish Audio S2 Pro, 80+ languages).\n\n1. Upload a clean 10-30s clip of the target speaker to 'Reference voice'.\n2. 'ref_text' \u2014 the exact words spoken in that clip. LEAVE EMPTY to have it transcribed automatically (Qwen3-ASR); type it manually for maximum accuracy.\n3. Type the text to speak into 'text' \u2014 the language is detected from the text itself.\n4. Run, listen in 'Save audio'.\n\nTip: leave 'Reference voice' unconnected to let the model pick a random voice.\n\nThe S2 server starts at boot; the first request after boot may wait a bit while it warms up.\n\nNOTE: Fish Audio Research License \u2014 research / non-commercial use."
+      ],
+      "color": "#333",
+      "bgcolor": "#444"
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "title": "Reference voice (target timbre) \u2014 10-30s",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -1180,
+        20
+      ],
+      "size": [
+        310,
+        140
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "type": "FishS2TTSClone",
+      "title": "Fish S2 TTS / Voice Clone",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -800,
+        20
+      ],
+      "size": [
+        430,
+        300
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reference_audio",
+          "type": "AUDIO",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FishS2TTSClone"
+      },
+      "widgets_values": [
+        "Type the text you want the cloned voice to say.",
+        ""
+      ]
+    },
+    {
+      "id": 4,
+      "type": "SaveAudioMP3",
+      "title": "Save audio (MP3)",
+      "pos": [
+        -330,
+        120
+      ],
+      "size": [
+        290,
+        136
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/fishs2-clone",
+        "V0"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "AUDIO"
+    ],
+    [
+      2,
+      3,
+      0,
+      4,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.55,
+      "offset": [
+        2198.181818181818,
+        508.18181818181813
+      ]
+    }
+  },
+  "version": 0.4
+}

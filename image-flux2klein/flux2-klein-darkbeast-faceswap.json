@@ -1,0 +1,256 @@
+{
+  "id": "d4b5c6e7-f8a9-40b1-9c2d-3e4f5a6b7c8d",
+  "revision": 0,
+  "last_node_id": 15,
+  "last_link_id": 14,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "MarkdownNote",
+      "pos": [
+        -460,
+        -300
+      ],
+      "size": [
+        430,
+        380
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "How to use",
+      "properties": {},
+      "widgets_values": [
+        "## Face Swap \u2014 DarkBeast (klein 9B)\n\n1. **Target photo** (red, top-left) \u2014 the picture whose face gets replaced. Ships with `example.png` so the graph runs out of the box.\n2. **Face to swap in** (red, bottom-left) \u2014 the source face/identity to paste on.\n3. **Prompt** \u2014 inside the **Face Swap** node; keep it simple, e.g. *swap the face of the person with the reference face, keep pose, expression and lighting*.\n4. **Steps = 5, CFG = 1** \u2014 DarkBeast is a distilled BFS model tuned for 5 steps / CFG 1. **Do not raise them** \u2014 higher values make it worse, not better.\n5. **Color Match** (orange) regrades the result to the target's lighting so the swap blends in. Lower `strength` (or 0) to disable.\n6. Press **Run** \u2014 the result is saved in **Save Image**.\n\nDarkBeast Klein 9b V2 BFS \u2014 face-swap-specialized klein 9B (safetensors, loaded via UNETLoader)."
+      ],
+      "color": "#333",
+      "bgcolor": "#444"
+    },
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        280
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [
+        -430,
+        750
+      ],
+      "size": [
+        320,
+        314
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 2,
+      "type": "Flux2KleinFaceSwap",
+      "pos": [
+        30,
+        190
+      ],
+      "size": [
+        480,
+        600
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reference_image1",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "reference_image2",
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "title": "Face Swap (DarkBeast \u2014 klein 9B)",
+      "properties": {
+        "Node name for S&R": "Flux2KleinFaceSwap"
+      },
+      "widgets_values": [
+        "DarkBeast-Klein9b-BFS.safetensors",
+        "flux2-klein-9b-uncensored-q8_0.gguf",
+        "flux2-vae.safetensors",
+        "Swap the face of the person in the first image with the face from the second image, keeping the original pose, expression, lighting and background.",
+        5,
+        1,
+        192774551144773,
+        "randomize"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 3,
+      "type": "SaveImage",
+      "pos": [
+        560,
+        190
+      ],
+      "size": [
+        440,
+        620
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 14
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "Flux2-Klein-DarkBeast-faceswap"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      3,
+      5,
+      0,
+      2,
+      1,
+      "IMAGE"
+    ],
+    [
+      14,
+      2,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "target photo",
+      "bounding": [
+        -460,
+        160,
+        380,
+        460
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "face to swap in",
+      "bounding": [
+        -460,
+        630,
+        380,
+        480
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.55,
+      "offset": [
+        1478.181818181818,
+        518.1818181818181
+      ]
+    }
+  },
+  "version": 0.4
+}

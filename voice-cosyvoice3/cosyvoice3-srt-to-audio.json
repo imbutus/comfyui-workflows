@@ -1,0 +1,221 @@
+{
+  "id": "c2e91a4d-srt1-4b22-8f31-srt2audio0001",
+  "revision": 0,
+  "last_node_id": 5,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "MarkdownNote",
+      "title": "How to use",
+      "pos": [
+        -1180,
+        -300
+      ],
+      "size": [
+        700,
+        280
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "SRT -> dubbed AUDIO, voice cloned, original timing preserved.\n\n1. Paste your TRANSLATED subtitles into 'CosyVoice SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a SHORT clean clip (3-15s, no music) of the speaker to 'Reference voice' \u2014 CosyVoice clones this timbre.\n3. Pick language (auto works; en/zh are reliable).\n4. Run. Each line is synthesized and time-stretched to fit its slot, so the output lines up with your video.\n\nKnobs: fit_to_timing (on = lock to SRT timing), max_stretch (cap before audio sounds sped-up), speed.\n\nLanguages: EN and ZH are solid. Other officially supported languages can be less reliable in this model \u2014 prefer the Qwen3-TTS bundle for those.\n\nFirst run downloads the CosyVoice model (~GB)."
+      ],
+      "color": "#333",
+      "bgcolor": "#444"
+    },
+    {
+      "id": 1,
+      "type": "FL_CosyVoice3_ModelLoader",
+      "title": "CosyVoice model",
+      "pos": [
+        -1180,
+        40
+      ],
+      "size": [
+        340,
+        200
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "COSYVOICE_MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FL_CosyVoice3_ModelLoader"
+      },
+      "widgets_values": [
+        "Fun-CosyVoice3-0.5B",
+        "HuggingFace",
+        "auto",
+        false,
+        false
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "title": "Reference voice (target timbre) \u2014 SHORT 3-15s",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -1180,
+        300
+      ],
+      "size": [
+        310,
+        140
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "type": "CosyVoiceSRTDub",
+      "title": "CosyVoice SRT Dub (paste translated SRT)",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -800,
+        40
+      ],
+      "size": [
+        430,
+        400
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "COSYVOICE_MODEL",
+          "link": 1
+        },
+        {
+          "name": "reference_audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CosyVoiceSRTDub"
+      },
+      "widgets_values": [
+        "1\n00:00:00,000 --> 00:00:03,200\nHello, today we will talk about...\n\n2\n00:00:03,200 --> 00:00:07,800\n...paste your translated SRT here, keep the timestamps...\n",
+        "auto",
+        false,
+        1.0,
+        1.0,
+        42
+      ]
+    },
+    {
+      "id": 4,
+      "type": "SaveAudioMP3",
+      "title": "Save dubbed track (MP3)",
+      "pos": [
+        -260,
+        40
+      ],
+      "size": [
+        290,
+        136
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 3
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/dubbed",
+        "V0"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "COSYVOICE_MODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      1,
+      "AUDIO"
+    ],
+    [
+      3,
+      3,
+      0,
+      4,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.55,
+      "offset": [
+        2198.181818181818,
+        518.1818181818181
+      ]
+    }
+  },
+  "version": 0.4
+}
