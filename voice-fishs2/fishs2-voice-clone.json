@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "TTS + VOICE CLONE (Fish Audio S2 Pro, 80+ languages).\n\n1. Upload a clean 10-30s clip of the target speaker to 'Reference voice'.\n2. 'ref_text' \u2014 the exact words spoken in that clip. LEAVE EMPTY to have it transcribed automatically (Qwen3-ASR); type it manually for maximum accuracy.\n3. Type the text to speak into 'text' \u2014 the language is detected from the text itself.\n4. Run, listen in 'Save audio'.\n\nTip: leave 'Reference voice' unconnected to let the model pick a random voice.\n\nThe S2 server starts at boot; the first request after boot may wait a bit while it warms up.\n\nNOTE: Fish Audio Research License \u2014 research / non-commercial use."
+        "TTS + VOICE CLONE (Fish Audio S2 Pro, 80+ languages).\n\n1. Upload a clean 10-30s clip of the target speaker to 'Reference voice'.\n2. 'ref_text' \u2014 the exact words spoken in that clip. LEAVE EMPTY to have it transcribed automatically (WhisperX); type it manually for maximum accuracy.\n3. Type the text to speak into 'text' \u2014 the language is detected from the text itself.\n4. Run, listen in 'Save audio'.\n\nTip: leave 'Reference voice' unconnected to let the model pick a random voice.\n\nThe S2 server starts at boot; the first request after boot may wait a bit while it warms up."
       ],
       "color": "#333",
       "bgcolor": "#444"

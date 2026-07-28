@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "SRT -> dubbed AUDIO, voice cloned, original timing preserved (Qwen3-TTS).\n\n1. Paste your TRANSLATED subtitles into 'Qwen3-TTS SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a SHORT clean clip (3-15s, no music) of the speaker to 'Reference voice'.\n3. 'ref_text' \u2014 the exact words spoken in that clip. LEAVE EMPTY to have it transcribed automatically (Qwen3-ASR); type it manually for maximum accuracy.\n4. Pick the language of the TRANSLATED text and run.\n\nKnobs: fit_to_timing (on = lock each line into its SRT slot), max_stretch (cap before audio sounds sped-up).\n\nEach line is synthesized with the cloned voice and placed at its SRT timestamp, so the output lines up with your video."
+        "SRT -> dubbed AUDIO, voice cloned, original timing preserved (Qwen3-TTS).\n\n1. Paste your TRANSLATED subtitles into 'Qwen3-TTS SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a SHORT clean clip (3-15s, no music) of the speaker to 'Reference voice'.\n3. 'ref_text' \u2014 the exact words spoken in that clip. LEAVE EMPTY to have it transcribed automatically (WhisperX); type it manually for maximum accuracy.\n4. Pick the language of the TRANSLATED text and run.\n\nKnobs: fit_to_timing (on = lock each line into its SRT slot), max_stretch (cap before audio sounds sped-up).\n\nEach line is synthesized with the cloned voice and placed at its SRT timestamp, so the output lines up with your video."
       ],
       "color": "#333",
       "bgcolor": "#444"

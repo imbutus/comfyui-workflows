@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "AUDIO -> SRT (transcribe, keep timing).\n\n1. Upload your source audio to 'Load source audio'.\n2. On 'Audio -> SRT' pick an ENGINE:\n   \u2022 whisperx (default) \u2014 Whisper core + phoneme forced-alignment; very tight word-level timing and reliable. Recommended.\n   \u2022 qwen3-asr \u2014 newest SOTA model, best overall accuracy.\n   Then pick the spoken language (auto / en / ru / zh).\n3. Run. The timestamped subtitles are saved to  output/subs/transcript.srt  and shown in the node.\n\nThen translate that SRT text (keep the timestamps unchanged) and feed it to the 'SRT -> Audio' workflow to get a dubbed track with the SAME timing."
+        "AUDIO -> SRT (transcribe, keep timing).\n\n1. Upload your source audio to 'Load source audio'.\n2. On 'Audio -> SRT' pick the spoken language (auto / en / ru / zh).\n   ENGINE is whisperx \u2014 Whisper core + phoneme forced-alignment; the tightest word-level timing and the best accuracy of the two engines.\n   The Qwen3-TTS bundle additionally offers 'qwen3-asr' as an alternative engine; every other voice bundle is WhisperX-only.\n3. Run. The timestamped subtitles are saved to  output/subs/transcript.srt  and shown in the node.\n\nThen translate that SRT text (keep the timestamps unchanged) and feed it to the 'SRT -> Audio' workflow to get a dubbed track with the SAME timing."
       ],
       "color": "#333",
       "bgcolor": "#444"

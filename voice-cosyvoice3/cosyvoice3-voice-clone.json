@@ -1,0 +1,283 @@
+{
+  "id": "b7c1f2a0-cosy-4d8e-9f10-voiceclone0001",
+  "revision": 0,
+  "last_node_id": 7,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 8,
+      "type": "MarkdownNote",
+      "title": "How to use",
+      "pos": [
+        -1150,
+        -340
+      ],
+      "size": [
+        780,
+        210
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "text": "VOICE CLONE (CosyVoice 3 zero-shot).\n\n1. Upload a SHORT clean clip (3-30s, no music) of the target speaker to 'Reference voice'. A reference clip is REQUIRED.\n2. Type the text you want spoken into 'text' on the Voice Clone node.\n3. Run, listen in 'Save audio'.\n\nFirst run downloads the CosyVoice model (~GB) — give it a few minutes.\n\nTo re-voice EXISTING speech instead of generating new speech, use the 'Change Voice' workflow — it keeps the original words and delivery and only swaps the timbre.\n\n⚠️ Predefined example — it resets to the original every GPU start; edits here are lost. Save under a NEW name (Save As) to keep your own copy; custom workflows persist between sessions."
+      },
+      "widgets_values": [
+        "VOICE CLONE (CosyVoice 3 zero-shot).\n\n1. Upload a SHORT clean clip (3-30s, no music) of the target speaker to 'Reference voice'. A reference clip is REQUIRED.\n2. Type the text you want spoken into 'text' on the Voice Clone node.\n3. Run, listen in 'Save audio'.\n\nFirst run downloads the CosyVoice model (~GB) — give it a few minutes.\n\nTo re-voice EXISTING speech instead of generating new speech, use the 'Change Voice' workflow — it keeps the original words and delivery and only swaps the timbre.\n\n⚠️ Predefined example — it resets to the original every GPU start; edits here are lost. Save under a NEW name (Save As) to keep your own copy; custom workflows persist between sessions."
+      ],
+      "color": "#333",
+      "bgcolor": "#444"
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "title": "Reference voice (target timbre) — SHORT 3-30s",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -1150,
+        20
+      ],
+      "size": [
+        290,
+        140
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "localized_name": "AUDIO",
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 1,
+      "type": "FL_CosyVoice3_ModelLoader",
+      "title": "CosyVoice model",
+      "pos": [
+        -1150,
+        300
+      ],
+      "size": [
+        340,
+        200
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "COSYVOICE_MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FL_CosyVoice3_ModelLoader"
+      },
+      "widgets_values": [
+        "Fun-CosyVoice3-0.5B",
+        "HuggingFace",
+        "auto",
+        false,
+        false
+      ]
+    },
+    {
+      "id": 4,
+      "type": "FL_CosyVoice3_ZeroShot",
+      "title": "CosyVoice 3 Voice Clone (text → speech in the reference voice)",
+      "color": "#432",
+      "bgcolor": "#653",
+      "pos": [
+        -740,
+        20
+      ],
+      "size": [
+        380,
+        300
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "COSYVOICE_MODEL",
+          "link": 1
+        },
+        {
+          "localized_name": "text",
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "reference_audio",
+          "name": "reference_audio",
+          "type": "AUDIO",
+          "link": 2
+        },
+        {
+          "localized_name": "speed",
+          "name": "speed",
+          "type": "FLOAT",
+          "widget": {
+            "name": "speed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "seed",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "text_frontend",
+          "name": "text_frontend",
+          "shape": 7,
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "text_frontend"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FL_CosyVoice3_ZeroShot"
+      },
+      "widgets_values": [
+        "Hello! This is a voice generation example.",
+        1.0,
+        42,
+        true
+      ]
+    },
+    {
+      "id": 7,
+      "type": "SaveAudioMP3",
+      "title": "Save audio (MP3)",
+      "pos": [
+        -260,
+        20
+      ],
+      "size": [
+        280,
+        136
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 3
+        },
+        {
+          "localized_name": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "quality",
+          "name": "quality",
+          "type": "COMBO",
+          "widget": {
+            "name": "quality"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/ComfyUI",
+        "V0"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      4,
+      0,
+      "COSYVOICE_MODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      4,
+      2,
+      "AUDIO"
+    ],
+    [
+      3,
+      4,
+      0,
+      7,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.55,
+      "offset": [
+        2168.181818181818,
+        558.1818181818181
+      ]
+    }
+  },
+  "version": 0.4
+}

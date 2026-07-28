@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "SRT -> dubbed AUDIO, voice cloned, original timing preserved (Fish Audio S2 Pro).\n\n1. Paste your TRANSLATED subtitles into 'Fish S2 SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a clean 10-30s clip of the speaker to 'Reference voice'.\n3. Run. The output language is detected from the SRT text itself.\n\nOptional: press '\ud83c\udf99 Transcribe' on the dub node to preview the WhisperX transcription of your reference clip in 'ref_text' and fix it before Run. Left empty, the transcript is derived automatically.\n\nKnobs: fit_to_timing (on = lock each line into its SRT slot), max_stretch (cap before audio sounds sped-up).\n\nNOTE: Fish Audio Research License \u2014 research / non-commercial use."
+        "SRT -> dubbed AUDIO, voice cloned, original timing preserved (Fish Audio S2 Pro).\n\n1. Paste your TRANSLATED subtitles into 'Fish S2 SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a clean 10-30s clip of the speaker to 'Reference voice'.\n3. Run. The output language is detected from the SRT text itself.\n\nOptional: press '\ud83c\udf99 Transcribe' on the dub node to preview the WhisperX transcription of your reference clip in 'ref_text' and fix it before Run. Left empty, the transcript is derived automatically.\n\nKnobs: fit_to_timing (on = lock each line into its SRT slot), max_stretch (cap before audio sounds sped-up)."
       ],
       "color": "#333",
       "bgcolor": "#444"

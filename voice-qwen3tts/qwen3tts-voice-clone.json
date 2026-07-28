@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "VOICE CLONE (Qwen3-TTS 1.7B Base).\n\n1. Upload a SHORT clean clip (3-15s, no music) of the target speaker to 'Reference voice'.\n2. 'ref_text' \u2014 the exact words spoken in that clip. LEAVE EMPTY to have it transcribed automatically (Qwen3-ASR); type it manually for maximum accuracy.\n3. Type the text you want spoken into 'text' and pick its language.\n4. Run, listen in 'Save audio'.\n\nFirst run loads the model (pre-baked at boot, a few seconds)."
+        "VOICE CLONE (Qwen3-TTS 1.7B Base).\n\n1. Upload a SHORT clean clip (3-15s, no music) of the target speaker to 'Reference voice'.\n2. 'ref_text' \u2014 the exact words spoken in that clip. LEAVE EMPTY to have it transcribed automatically (WhisperX); type it manually for maximum accuracy.\n3. Type the text you want spoken into 'text' and pick its language.\n4. Run, listen in 'Save audio'.\n\nFirst run loads the model (pre-baked at boot, a few seconds)."
       ],
       "color": "#333",
       "bgcolor": "#444"
