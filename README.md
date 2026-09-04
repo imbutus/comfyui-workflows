@@ -14,7 +14,8 @@ Each folder is one bundle. To use a workflow, drag its `.json` onto the ComfyUI 
 | `image-boogu` | Boogu-Image — fast Turbo + instruction editing, bilingual text |
 | `image-krea2` | Krea-2 — photorealistic 2K text→image with style LoRAs |
 | `video-minimaxh3` | MiniMax H3 — video with native stereo audio, text/image/reference driven (MiniMaxDirector timeline) |
-| `video-sulphur2` | Sulphur-2 — text/image/audio/video → video (LTX Director 2.0) |
+| `video-ltx25` | LTX-2.5 — text/image → video with matching audio, plus first-frame edits that ripple through the whole shot |
+| `video-sulphur2` | Sulphur-2 — text/image/audio/video → video (LTX Director 2.0), plus lip-sync dubbing |
 | `video-scail2` | SCAIL-2 — character animation & replacement (Wan2.1 14B) |
 | `voice-fishs2` | Fish Audio S2 — TTS + voice clone, voice↔SRT |
 | `voice-cosyvoice3` | CosyVoice 3 — TTS, voice clone/convert, voice↔SRT |
