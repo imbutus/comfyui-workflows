@@ -264,7 +264,7 @@
         },
         "revision": 0,
         "config": {},
-        "name": "New Subgraph",
+        "name": "Image Edit (Qwen-Image 2512 Multi-Angle)",
         "inputNode": {
           "id": -10,
           "bounding": [

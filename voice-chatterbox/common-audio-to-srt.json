@@ -14,7 +14,7 @@
       ],
       "size": [
         620,
-        250
+        230
       ],
       "flags": {},
       "order": 0,
@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "AUDIO -> SRT (transcribe, keep timing).\n\n1. Upload your source audio to 'Load source audio'.\n2. On 'Audio -> SRT' pick the spoken language (auto / en / ru / zh).\n   ENGINE is whisperx \u2014 Whisper core + phoneme forced-alignment; the tightest word-level timing and the best accuracy of the two engines.\n   The Qwen3-TTS bundle additionally offers 'qwen3-asr' as an alternative engine; every other voice bundle is WhisperX-only.\n3. Run. The timestamped subtitles are saved to  output/subs/transcript.srt  and shown in the node.\n\nThen translate that SRT text (keep the timestamps unchanged) and feed it to the 'SRT -> Audio' workflow to get a dubbed track with the SAME timing."
+        "AUDIO -> SRT (transcribe, keep timing).\n\n1. Upload your source audio to 'Load source audio'.\n2. On 'Audio -> SRT' pick the spoken language (auto / en / ru / zh).\n   ENGINE is whisperx — Whisper core + phoneme forced-alignment; the tightest word-level timing and the best accuracy of the two engines.\n   The Qwen3-TTS bundle additionally offers 'qwen3-asr' as an alternative engine; every other voice bundle is WhisperX-only.\n3. Choose where the subtitle lines break:\n   PAUSE_GAP (seconds) — a silence longer than this starts a new line. 1.5 is a natural sentence break; lower it for shorter, denser lines.\n   MAX_CHARS — a line is also broken once it grows past this many characters. Set it to 0 to switch the character limit OFF and break on pauses only.\n4. Run. The timestamped subtitles are saved to  output/subs/transcript.srt  and shown in the node.\n\nThen translate that SRT text (keep the timestamps unchanged) and feed it to the 'SRT -> Audio' workflow to get a dubbed track with the SAME timing."
       ],
       "color": "#333",
       "bgcolor": "#444"
@@ -72,7 +72,7 @@
       ],
       "size": [
         380,
-        180
+        206
       ],
       "flags": {},
       "order": 2,
@@ -98,7 +98,8 @@
         "whisperx",
         "auto",
         "subs/transcript",
-        1.5
+        1.5,
+        0
       ]
     }
   ],
@@ -116,10 +117,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.55,
+      "scale": 0.97,
       "offset": [
-        1918.181818181818,
-        478.18181818181813
+        1477.319587628866,
+        383.7113402061856
       ]
     }
   },

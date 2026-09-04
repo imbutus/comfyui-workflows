@@ -112,8 +112,8 @@
         530
       ],
       "size": [
-        400,
-        145
+        420,
+        420
       ],
       "flags": {},
       "order": 1,
@@ -233,7 +233,9 @@
         1024,
         "Flux2-Klein-9B-True-V3-Q8_0.gguf",
         "flux2-klein-9b-uncensored-q8_0.gguf",
-        "flux2-vae.safetensors"
+        "flux2-vae.safetensors",
+        0,
+        "randomize"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -323,7 +325,9 @@
         1024,
         "Flux2-Klein-9B-True-V3-Q8_0.gguf",
         "flux2-klein-9b-uncensored-q8_0.gguf",
-        "flux2-vae.safetensors"
+        "flux2-vae.safetensors",
+        432262096973490,
+        "randomize"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -437,7 +441,7 @@
         },
         "revision": 0,
         "config": {},
-        "name": "Text to Image (Flux.2 Klein 4B)",
+        "name": "Text to Image (Flux.2 Klein 9B)",
         "inputNode": {
           "id": -10,
           "bounding": [
@@ -464,6 +468,7 @@
             "linkIds": [
               155
             ],
+            "label": "width",
             "pos": [
               -554.6666797319973,
               603.833333604156
@@ -476,6 +481,7 @@
             "linkIds": [
               157
             ],
+            "label": "height",
             "pos": [
               -554.6666797319973,
               623.833333604156
@@ -1005,7 +1011,7 @@
             },
             "widgets_values": [
               1024,
-              "randomize"
+              "fixed"
             ]
           },
           {
@@ -1059,7 +1065,7 @@
             },
             "widgets_values": [
               1024,
-              "randomize"
+              "fixed"
             ]
           },
           {
@@ -1598,7 +1604,7 @@
         },
         "revision": 0,
         "config": {},
-        "name": "Text to Image (Flux.2 Klein 4B Distilled)",
+        "name": "Text to Image (Flux.2 Klein 9B Distilled)",
         "inputNode": {
           "id": -10,
           "bounding": [
@@ -1625,6 +1631,7 @@
             "linkIds": [
               155
             ],
+            "label": "width",
             "pos": [
               -554.6666797319973,
               603.833333604156
@@ -1637,6 +1644,7 @@
             "linkIds": [
               157
             ],
+            "label": "height",
             "pos": [
               -554.6666797319973,
               623.833333604156
@@ -1992,7 +2000,7 @@
             },
             "widgets_values": [
               1024,
-              "randomize"
+              "fixed"
             ]
           },
           {
@@ -2046,7 +2054,7 @@
             },
             "widgets_values": [
               1024,
-              "randomize"
+              "fixed"
             ]
           },
           {

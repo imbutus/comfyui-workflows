@@ -9,7 +9,7 @@
       "type": "MarkdownNote",
       "title": "How to use",
       "pos": [
-        -1150,
+        -1900,
         -340
       ],
       "size": [
@@ -37,7 +37,7 @@
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
-        -1150,
+        -1900,
         20
       ],
       "size": [
@@ -72,8 +72,8 @@
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
-        -1150,
-        300
+        -1900,
+        200
       ],
       "size": [
         290,
@@ -105,8 +105,8 @@
       "type": "FLAudioSplitChunks",
       "title": "Auto-split source into <=25s chunks",
       "pos": [
-        -1150,
-        580
+        -1560,
+        20
       ],
       "size": [
         290,
@@ -154,8 +154,8 @@
       "type": "FL_CosyVoice3_ModelLoader",
       "title": "CosyVoice model",
       "pos": [
-        -1150,
-        820
+        -1560,
+        170
       ],
       "size": [
         340,
@@ -193,7 +193,7 @@
       "color": "#432",
       "bgcolor": "#653",
       "pos": [
-        -740,
+        -1180,
         20
       ],
       "size": [
@@ -265,7 +265,7 @@
       "type": "FLAudioConcat",
       "title": "Stitch re-voiced chunks",
       "pos": [
-        -260,
+        -740,
         20
       ],
       "size": [
@@ -303,8 +303,8 @@
       "type": "SaveAudioMP3",
       "title": "Save audio (MP3)",
       "pos": [
-        -260,
-        180
+        -740,
+        140
       ],
       "size": [
         280,
@@ -403,10 +403,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.55,
+      "scale": 0.8056,
       "offset": [
-        2168.181818181818,
-        558.1818181818181
+        2048.96,
+        494.13
       ]
     }
   },

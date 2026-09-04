@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "SRT -> dubbed AUDIO, voice cloned, original timing preserved (Fish Audio S2 Pro).\n\n1. Paste your TRANSLATED subtitles into 'Fish S2 SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a clean 10-30s clip of the speaker to 'Reference voice'.\n3. Run. The output language is detected from the SRT text itself.\n\nOptional: press '\ud83c\udf99 Transcribe' on the dub node to preview the WhisperX transcription of your reference clip in 'ref_text' and fix it before Run. Left empty, the transcript is derived automatically.\n\nKnobs: fit_to_timing (on = lock each line into its SRT slot), max_stretch (cap before audio sounds sped-up)."
+        "SRT -> dubbed AUDIO, voice cloned, original timing preserved (Fish Audio S2 Pro).\n\n1. Paste your TRANSLATED subtitles into 'Fish S2 SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a clean 10-30s clip of the speaker to 'Reference voice'.\n3. End every cue with punctuation — a line with no full stop is sometimes rendered as nothing at all (fishaudio/fish-speech#1050).\n4. Run. The output language is detected from the SRT text itself.\n\nA cue that comes back empty is retried three times. If it still fails the dub is saved anyway and the server log lists the cue numbers under '!!! no audio for N cue(s)' — check that line before you take the audio into the editor.\n\nOptional: press '🎙 Transcribe' on the dub node to preview the WhisperX transcription of your reference clip in 'ref_text' and fix it before Run. Left empty, the transcript is derived automatically.\n\nKnobs: fit_to_timing (on = lock each line into its SRT slot), max_stretch (cap before audio sounds sped-up)."
       ],
       "color": "#333",
       "bgcolor": "#444"
@@ -31,7 +31,7 @@
     {
       "id": 2,
       "type": "LoadAudio",
-      "title": "Reference voice (target timbre) \u2014 10-30s",
+      "title": "Reference voice (target timbre) — 10-30s",
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
@@ -158,10 +158,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.55,
+      "scale": 0.7792,
       "offset": [
-        2198.181818181818,
-        518.1818181818181
+        1334.0,
+        458.34
       ]
     }
   },

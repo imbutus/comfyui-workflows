@@ -1473,7 +1473,7 @@
             },
             "widgets_values": [
               1024,
-              "randomize"
+              "fixed"
             ]
           },
           {
@@ -1526,7 +1526,7 @@
             },
             "widgets_values": [
               1024,
-              "randomize"
+              "fixed"
             ]
           },
           {

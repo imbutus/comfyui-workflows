@@ -1006,7 +1006,7 @@
             },
             "widgets_values": [
               50,
-              "randomize"
+              "fixed"
             ]
           },
           {
@@ -1161,7 +1161,7 @@
             },
             "widgets_values": [
               4,
-              "randomize"
+              "fixed"
             ]
           },
           {
