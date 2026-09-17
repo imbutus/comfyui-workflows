@@ -1,0 +1,225 @@
+{
+  "id": "auk-0005-enhance",
+  "revision": 0,
+  "last_node_id": 5,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "title": "How to use",
+      "pos": [
+        -1180,
+        -320
+      ],
+      "size": [
+        680,
+        250
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "CLEAN A RECORDING (AuK speech enhancement).\n\nRemoves noise, hum, echo and room tone. Run it on a voice sample BEFORE cloning from it — every line cloned from a noisy sample inherits that room.\n\nAuK can only see about fourteen seconds at a time (its 30s budget covers the input AND the output), so this node splits a long file at its quietest points, cleans each piece and crossfades them back together. A whole track is fine here; the plain AuK node would refuse it.\n\n1. Upload the recording.\n2. Run. Save the result and use it as the reference in the other workflows.\n\nTo split speech from background music, say so in the instruction instead."
+      ],
+      "color": "#333",
+      "bgcolor": "#444"
+    },
+    {
+      "id": 2,
+      "type": "AuKModelLoader",
+      "title": "AuK model (base = quality, flash = 4-step)",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -1180,
+        40
+      ],
+      "size": [
+        420,
+        180
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "engine",
+          "type": "AUK_ENGINE",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AuKModelLoader"
+      },
+      "widgets_values": [
+        "ckpts/AuK/auk_base.safetensors",
+        "",
+        "ckpts/Qwen2.5-Omni-3B",
+        "cuda:0",
+        "bf16",
+        false
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LoadAudio",
+      "title": "Noisy recording",
+      "pos": [
+        -1180,
+        300
+      ],
+      "size": [
+        340,
+        136
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "voice-source.mp3",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 4,
+      "type": "AuKEnhanceLong",
+      "title": "AuK Enhance (any length)",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -700,
+        40
+      ],
+      "size": [
+        470,
+        300
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "engine",
+          "type": "AUK_ENGINE",
+          "link": 1
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AuKEnhanceLong"
+      },
+      "widgets_values": [
+        "Remove the background noise, echoes and reverberation from the input audio and keep the speech clean and natural.",
+        12.0,
+        42,
+        "fixed",
+        32,
+        2.0,
+        30
+      ]
+    },
+    {
+      "id": 5,
+      "type": "SaveAudioMP3",
+      "title": "Save audio (MP3)",
+      "pos": [
+        -180,
+        80
+      ],
+      "size": [
+        290,
+        136
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/auk-cleaned",
+        "V0"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      4,
+      0,
+      "AUK_ENGINE"
+    ],
+    [
+      3,
+      3,
+      0,
+      4,
+      1,
+      "AUDIO"
+    ],
+    [
+      2,
+      4,
+      0,
+      5,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8,
+      "offset": [
+        1200,
+        400
+      ]
+    }
+  },
+  "version": 0.4
+}

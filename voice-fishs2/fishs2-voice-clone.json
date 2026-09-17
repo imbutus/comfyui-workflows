@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "TTS + VOICE CLONE (Fish Audio S2 Pro, 80+ languages).\n\n1. Upload a clean 10-30s clip of the target speaker to 'Reference voice'.\n2. 'ref_text' \u2014 the exact words spoken in that clip. LEAVE EMPTY to have it transcribed automatically (WhisperX); type it manually for maximum accuracy.\n3. Type the text to speak into 'text' \u2014 the language is detected from the text itself.\n4. Run, listen in 'Save audio'.\n\nTip: leave 'Reference voice' unconnected to let the model pick a random voice.\n\nThe S2 server starts at boot; the first request after boot may wait a bit while it warms up."
+        "TTS + VOICE CLONE (Fish Audio S2 Pro, 80+ languages).\n\n1. Upload a clean 10-30s clip of the target speaker to 'Reference voice'.\n2. 'ref_text' — the exact words spoken in that clip. LEAVE EMPTY to have it transcribed automatically (WhisperX); type it manually for maximum accuracy.\n3. Type the text to speak into 'text' — the language is detected from the text itself.\n4. Run, listen in 'Save audio'.\n\nTip: leave 'Reference voice' unconnected to let the model pick a random voice.\n\nThe S2 server starts at boot; the first request after boot may wait a bit while it warms up."
       ],
       "color": "#333",
       "bgcolor": "#444"
@@ -31,7 +31,7 @@
     {
       "id": 2,
       "type": "LoadAudio",
-      "title": "Reference voice (target timbre) \u2014 10-30s",
+      "title": "Reference voice (target timbre) — 10-30s",
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
@@ -39,7 +39,7 @@
         20
       ],
       "size": [
-        310,
+        330,
         140
       ],
       "flags": {},
@@ -69,7 +69,7 @@
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
-        -800,
+        -780,
         20
       ],
       "size": [
@@ -108,7 +108,7 @@
       "type": "SaveAudioMP3",
       "title": "Save audio (MP3)",
       "pos": [
-        -330,
+        -310,
         120
       ],
       "size": [

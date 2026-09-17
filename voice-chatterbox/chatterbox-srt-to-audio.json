@@ -31,7 +31,7 @@
     {
       "id": 2,
       "type": "LoadAudio",
-      "title": "Reference voice (target timbre) \u2014 SHORT 3-15s",
+      "title": "Reference voice (target timbre) — SHORT 3-15s",
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
@@ -39,7 +39,7 @@
         20
       ],
       "size": [
-        310,
+        330,
         140
       ],
       "flags": {},
@@ -69,7 +69,7 @@
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
-        -800,
+        -780,
         20
       ],
       "size": [
@@ -110,7 +110,7 @@
       "type": "SaveAudioMP3",
       "title": "Save dubbed track (MP3)",
       "pos": [
-        -260,
+        -240,
         20
       ],
       "size": [

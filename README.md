@@ -20,6 +20,7 @@ Each folder is one bundle. To use a workflow, drag its `.json` onto the ComfyUI 
 | `voice-fishs2` | Fish Audio S2 — TTS + voice clone, voice↔SRT |
 | `voice-cosyvoice3` | CosyVoice 3 — TTS, voice clone/convert, voice↔SRT |
 | `voice-qwen3tts` | Qwen3-TTS — voice design + 3-second clone, voice↔SRT |
+| `voice-auk` | AuK — instruction-driven voice design, clone, SRT dubbing, speech editing, denoise (English & Chinese) |
 | `voice-chatterbox` | Chatterbox Multilingual — TTS + clone + conversion, 23 languages |
 
 ## Links

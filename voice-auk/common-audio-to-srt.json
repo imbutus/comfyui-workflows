@@ -1,0 +1,128 @@
+{
+  "id": "b3a02e5f-qw03-4c33-9a42-audio2srt0001",
+  "revision": 0,
+  "last_node_id": 3,
+  "last_link_id": 1,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "title": "How to use",
+      "pos": [
+        -900,
+        -260
+      ],
+      "size": [
+        620,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "AUDIO -> SRT (transcribe, keep timing).\n\n1. Upload your source audio to 'Load source audio'.\n2. On 'Audio -> SRT' pick the spoken language (auto / en / ru / zh).\n   ENGINE is whisperx — Whisper core + phoneme forced-alignment; the tightest word-level timing and the best accuracy of the two engines.\n   The Qwen3-TTS bundle additionally offers 'qwen3-asr' as an alternative engine; every other voice bundle is WhisperX-only.\n3. Choose where the subtitle lines break:\n   PAUSE_GAP (seconds) — a silence longer than this starts a new line. 1.5 is a natural sentence break; lower it for shorter, denser lines.\n   MAX_CHARS — a line is also broken once it grows past this many characters. Set it to 0 to switch the character limit OFF and break on pauses only.\n4. Run. The timestamped subtitles are saved to  output/subs/transcript.srt  and shown in the node.\n\nThen translate that SRT text (keep the timestamps unchanged) and feed it to the 'SRT -> Audio' workflow to get a dubbed track with the SAME timing."
+      ],
+      "color": "#333",
+      "bgcolor": "#444"
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "title": "Load source audio (any length)",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -900,
+        60
+      ],
+      "size": [
+        310,
+        140
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "type": "WhisperToSRT",
+      "title": "Audio -> SRT (pick engine: Qwen3-ASR / WhisperX)",
+      "pos": [
+        -540,
+        60
+      ],
+      "size": [
+        380,
+        206
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "srt",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "WhisperToSRT"
+      },
+      "widgets_values": [
+        "whisperx",
+        "auto",
+        "subs/transcript",
+        1.5,
+        0
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.97,
+      "offset": [
+        1477.319587628866,
+        383.7113402061856
+      ]
+    }
+  },
+  "version": 0.4
+}

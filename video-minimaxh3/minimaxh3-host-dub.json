@@ -1,0 +1,749 @@
+{
+  "id": "minimax-h3-host-dub",
+  "revision": 0,
+  "last_node_id": 16,
+  "last_link_id": 16,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        560,
+        1500
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "## A talking head, longer than a render\n\nMiniMax H3 renders 4 to 15 seconds. This graph renders a recording of any length: it cuts\nthe recording at its own pauses, renders every piece, and saves the whole talk as one file.\n\n**Three things to fill in.**\n\n1. **the whole recording** \u2014 `Load Audio`, bottom left. Any length.\n2. **the speaker** \u2014 `Load Image`, the photograph the person comes from.\n3. **`speaker`** on *render the whole talk* \u2014 what has to stay the same about them: face,\n   hair, what they are wearing.\n\n**The joins are continuations.** `seam` ships as `motion context`: the last 22 frames of\neach render \u2014 picture *and* sound \u2014 are pinned at the head of the next one, sliced straight\nout of its latent, so the model carries the motion on instead of opening a new take. Those\n22 frames are rendered again and dropped, and what follows them is delivered; nothing is\nshown twice and nothing on the timeline moves. This is the H3 Motion Context pack\n(NikoDemon80), which the pod installs beside this graph. A join lands a little *before* the\npause the recording was cut on, inside the last word \u2014 a render is only ever a whole\nlattice length, and it is rounded down so that it never runs into the pause. The tail of\nthe word and the pause open the next render, where the prompt says the speaking stops.\n\n`dissolve` is the older way: every piece rendered on its own and faded into the next over\n`blend_seconds`. Keep it for a pod without the pack, or to compare.\n\n**You can watch it work.** *render the whole talk* shows the frames it is sampling, live,\nthe same preview any sampler node gives \u2014 so you can see how a piece is coming out before\nit is finished. It is a rough decode of the latent, not the final picture.\n\n**Then press Run.** Once. The progress bar covers the whole talk, not one clip, and the\nfinished video appears in Assets. The panel on the right lists every piece: where it fell\nin the recording, how long it is, and anything it was told to do besides speak.\n\n**Where the cuts land.** The recording is cut in its own silences, and each piece takes the\nlast pause that still fits inside `most_seconds`: the longest piece that ends in a breath.\n`pause_seconds` is the shortest silence worth cutting in \u2014 below about 0.3 s you are\ncutting inside a sentence \u2014 and `floor_db` is how quiet counts as silence. Somebody who\ntalks for `most_seconds` without pausing gets cut anyway, and the panel says so; that join\nis the one you may hear.\n\n**The sound is uncompressed.** The merged file's audio track is 16-bit PCM, not AAC.\nEncoding it cost 47 dB of signal-to-noise against the source mp3, which is audible in the\nquiet parts; PCM costs 81 dB, which is the rounding and nothing else. It adds about 5 MB a\nminute \u2014 re-encode it in your editor if that matters.\n\n**The voice on the video is your file.** H3 always synthesises a soundtrack of its own.\nThis graph never decodes it: your recording is written into the finished video as one\nunbroken track, so it cannot drift. The mouth matches because that same recording is what\ndrove it.\n\n**How much of the person is in shot.** `framing`: `at a laptop, behind a desk`, `waist up,\nseated` (a presenter behind a desk), `head and shoulders`, `close on the face`, `as in the\nreference` to let the photograph decide, or `custom` \u2014 then write the shot in\n`custom_framing`, a phrase that finishes *\"The person in the picture is \u2026\"*. H3 takes\nframing from words, so each of these is a phrase in the prompt: nothing crops your picture,\nand everything in the shot besides the person is invented. What the graph ships is `custom`\nwith a desk, an open laptop, and a spade from a deck of cards on its lid.\n\n**What he does besides speak.** *what he does, and when*. Press **\uff0b add an action** for a\nblock, as many as you like; **\u2715** removes one:\n\n* **at** \u2014 when it happens, on the recording's own clock: `1:05`, `1:02:03`, or `47.5`.\n* **until** \u2014 leave it empty for a moment. Fill it in for a stretch, `2:10`\u2192`2:25`.\n* **does** \u2014 what he does, in plain words.\n\nOr paste a list into the box under the blocks, one action per line (`0:00-0:03  he walks in`,\n`0:16  he smacks his forehead`), and press **add** to append them as blocks or **replace** to\nswap every block for them.\n\nThe times are on the recording's own clock, the one your audio editor shows, so you read\nthem straight off the waveform. A stretch running over a cut is described in both pieces so\nthe gesture does not stop halfway. `m:ss`, `h:mm:ss` and plain seconds all work. A block\nwith no readable time in it stops the run rather than being quietly ignored. The node ships\nwith no actions: he just speaks.\n\nAn action at `0:00` opens the shot: it is told *before* the sentence that has him seated\nand speaking, which then follows with \"Then\" \u2014 so `0:00`\u2192`0:04` `he walks in from the\nright, pulls out the chair and sits down at the desk` makes an entrance instead of being\noverruled by the seat. Write it with \"he\": the sentence starts where your words start.\n\nOnly the piece covering a given time is told about it; every other piece is just speaking.\n\n**Shots are short on purpose.** `most_seconds` ships at 6, not at H3's 14. The model\nspreads the speaking across whatever length of shot it is given, so a long shot with a\npause inside it moves the mouth through the pause. A short shot has less room to get that\nwrong. Cutting more often costs nothing now: the sound is never cut \u2014 it is your recording,\nwritten once \u2014 and the joins carry the motion on. Keep `most_seconds` at 13 or below: the\npinned head and the lattice add up to a second on top of it, and 14.4 s is the ceiling.\n\n**The voice is the soundtrack.** `anchor_voice`, on. Handed the recording as a reference\nonly, H3 imitates it and spreads the words across the whole shot \u2014 measured, the mouth spoke\nthrough every pause inside a piece, 1.5 s of silence at the very start included. Anchoring\nit as a guide fixed the timing and not the pauses. So the recording is written into the\nshot's own audio stream and kept out of denoising: the soundtrack *is* the recording, to the\nstep, the picture is generated against it, and where it is silent there is nothing to say.\nSilent pieces get their silence written in the same way. Switch it off for the\nreference-only behaviour.\n\n**Silence is rendered with nothing to speak to.** A pause of `still_seconds` or more, never\nless than `least_seconds`, is still rendered, but the model is handed **no audio at all**\nfor it. Given silence as a\nreference, H3 animates a mouth against it anyway \u2014 measured, 34 seconds of digital silence\ncame back with the mouth moving. Given nothing, it has nothing to speak to, and what comes\nback is somebody sitting there. The panel marks those pieces.\n\n**What he does while he is not talking.** `between_sentences`, `he types on the laptop and\nlooks at the screen` as it ships. Two silences get it: a pause inside a shot longer than\n`idle_seconds`, and a whole piece with no speech in it at all \u2014 there the sentence about a\nmouth following words is replaced, because there are no words. Empty the box to turn it\noff.\n\n**Size.** 1:1 at 0.4 megapixels \u2014 640x640. Below about 0.25 MP small detail (a picture\nframe, a plant, a logo) breaks into blocks.\n\n**The model.** *Base model \u2014 stock or Singularity*, top left, picks the ref2va base: **stock** is MiniMax's own and is on the pod from boot; **Singularity** (WarmBloodAban) is a fine-tune with cleaner skin and faces and a look of its own -- not better, different -- and picking it fetches 21 GB from Hugging Face the first time you press Run (a few minutes, once per pod). lightx2v's 4-step Ref2V turbo sits on top either way (`steps` 4, sigma shift 12 / 3 -- the settings both publish). A realism LoRA was tried and measured to flatten the speech, the mouth opening evenly without emotion, so it is gone; `realism_trigger` is only for a LoRA you add yourself.steps` to 20 and the sampler back to `res_multistep`.\n\n**One seed for the whole talk.** The photograph, the prompt and the seed are what hold the\ninvented desk and wall steady from the first render on. Change the number to move the talk\nto a different room.\n\n**`continuity`** ships `off`: every piece gets nothing but your photograph. Handing a\nframe of H3's own back as a second picture reference \u2014 `the first piece`, `the piece\nbefore` \u2014 gave every render after the first its etched, contrasty texture (measured on the\nsecond full render, from 10 s on). With `motion context` the room is carried by the pinned\nhead, so nothing is lost.\n\n**If the face drifts between pieces**, try `ref_image_size` `max`. It keeps identity better\nand is several times slower, which over sixty renders is a real cost."
+      ],
+      "title": "How to use",
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 2,
+      "type": "MiniMaxH3Base",
+      "pos": [
+        660,
+        40
+      ],
+      "size": [
+        640,
+        90
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3Base"
+      },
+      "widgets_values": [
+        "stock",
+        "default"
+      ],
+      "title": "Base model \u2014 stock or Singularity"
+    },
+    {
+      "id": 3,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        660,
+        190
+      ],
+      "size": [
+        480,
+        82
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
+        1
+      ],
+      "title": "Turbo LoRA \u2014 4 steps"
+    },
+    {
+      "id": 4,
+      "type": "CLIPLoader",
+      "pos": [
+        660,
+        440
+      ],
+      "size": [
+        640,
+        120
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 0,
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "minimax",
+        "default"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "VAELoader",
+      "pos": [
+        660,
+        610
+      ],
+      "size": [
+        640,
+        70
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 0,
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "VAELoader",
+      "pos": [
+        660,
+        730
+      ],
+      "size": [
+        650,
+        70
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 0,
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_audio_vae_fp32.safetensors"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "LoadImage",
+      "pos": [
+        660,
+        850
+      ],
+      "size": [
+        290,
+        330
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "slot_index": 1,
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "red_superboy_on_city_roof.png",
+        "image"
+      ],
+      "title": "the speaker"
+    },
+    {
+      "id": 8,
+      "type": "LoadAudio",
+      "pos": [
+        660,
+        1220
+      ],
+      "size": [
+        400,
+        136
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "slot_index": 0,
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "speech.mp3",
+        null,
+        null
+      ],
+      "title": "the whole recording"
+    },
+    {
+      "id": 9,
+      "type": "ResolutionSelector",
+      "pos": [
+        660,
+        1400
+      ],
+      "size": [
+        270,
+        170
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "slot_index": 0,
+          "links": [
+            9
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "slot_index": 1,
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ResolutionSelector"
+      },
+      "widgets_values": [
+        "1:1 (Square)",
+        0.4,
+        32
+      ],
+      "title": "Resolution Selector (Size)"
+    },
+    {
+      "id": 10,
+      "type": "KSamplerSelect",
+      "pos": [
+        1360,
+        40
+      ],
+      "size": [
+        370,
+        70
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "slot_index": 0,
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "euler"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "BasicScheduler",
+      "pos": [
+        1360,
+        150
+      ],
+      "size": [
+        370,
+        130
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "slot_index": 0,
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BasicScheduler"
+      },
+      "widgets_values": [
+        "simple",
+        4,
+        1
+      ]
+    },
+    {
+      "id": 12,
+      "type": "MiniMaxTimedAction",
+      "pos": [
+        1360,
+        330
+      ],
+      "size": [
+        430,
+        340
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "actions",
+          "type": "MMH3_ACTIONS",
+          "shape": 7,
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "actions",
+          "type": "MMH3_ACTIONS",
+          "slot_index": 0,
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxTimedAction"
+      },
+      "widgets_values": [
+        "# One line each: a time on the recording, then what he does there.\n# A single time is a moment; two with a dash between them is a stretch.\n# Delete a # to switch a line on.\n#\n# 1:05        he takes off his glasses and sets them down\n# 2:10-2:25   he turns to the whiteboard and points at it\n# 47.5        he leans back in the chair\n"
+      ],
+      "title": "what he does, and when"
+    },
+    {
+      "id": 13,
+      "type": "MiniMaxH3RenderTalk",
+      "pos": [
+        1820,
+        40
+      ],
+      "size": [
+        540,
+        1180
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 3
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 4
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 5
+        },
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 6
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 11
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 12
+        },
+        {
+          "name": "speaker_image",
+          "type": "IMAGE",
+          "link": 7
+        },
+        {
+          "name": "recording",
+          "type": "AUDIO",
+          "link": 8
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 9
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 10
+        },
+        {
+          "name": "actions",
+          "type": "MMH3_ACTIONS",
+          "shape": 7,
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "report",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3RenderTalk"
+      },
+      "widgets_values": [
+        640,
+        640,
+        157368968253448,
+        "fixed",
+        "max",
+        "video/MiniMaxHostDub-whole",
+        0.8,
+        4.0,
+        "the first piece",
+        "speech",
+        "the fat man: his face, greying hair and the black tuxedo",
+        "custom",
+        "seated behind a desk with an open laptop in front of them, framed from the waist up, the closed lid of the laptop facing the camera plain dark metal marked with one large black spade symbol from a deck of playing cards, centred, and no other logo or emblem of any kind on it",
+        "he types on the laptop and looks at the screen",
+        1.0,
+        "picture",
+        "The person in {speaker} is {framing}, speaking straight to camera, their mouth, jaw and breathing following the words of {voice} exactly, their head moving with its emphasis.",
+        4.0,
+        14.0,
+        0.3,
+        -40.0,
+        "motion context",
+        true,
+        "",
+        0.0,
+        "seedvr2",
+        true
+      ],
+      "title": "render the whole talk"
+    },
+    {
+      "id": 14,
+      "type": "PreviewAny",
+      "pos": [
+        2420,
+        40
+      ],
+      "size": [
+        480,
+        400
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 14
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [],
+      "title": "what it rendered"
+    },
+    {
+      "id": 15,
+      "type": "MiniMaxH3SigmaShift",
+      "pos": [
+        660,
+        290
+      ],
+      "size": [
+        480,
+        82
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2,
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3SigmaShift"
+      },
+      "widgets_values": [
+        12.0,
+        3.0
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      15,
+      0,
+      11,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      15,
+      0,
+      13,
+      0,
+      "MODEL"
+    ],
+    [
+      4,
+      4,
+      0,
+      13,
+      1,
+      "CLIP"
+    ],
+    [
+      5,
+      5,
+      0,
+      13,
+      2,
+      "VAE"
+    ],
+    [
+      6,
+      6,
+      0,
+      13,
+      3,
+      "VAE"
+    ],
+    [
+      7,
+      7,
+      0,
+      13,
+      6,
+      "IMAGE"
+    ],
+    [
+      8,
+      8,
+      0,
+      13,
+      7,
+      "AUDIO"
+    ],
+    [
+      9,
+      9,
+      0,
+      13,
+      8,
+      "INT"
+    ],
+    [
+      10,
+      9,
+      1,
+      13,
+      9,
+      "INT"
+    ],
+    [
+      11,
+      10,
+      0,
+      13,
+      4,
+      "SAMPLER"
+    ],
+    [
+      12,
+      11,
+      0,
+      13,
+      5,
+      "SIGMAS"
+    ],
+    [
+      13,
+      12,
+      0,
+      13,
+      10,
+      "MMH3_ACTIONS"
+    ],
+    [
+      14,
+      13,
+      0,
+      14,
+      0,
+      "STRING"
+    ],
+    [
+      15,
+      3,
+      0,
+      15,
+      0,
+      "MODEL"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

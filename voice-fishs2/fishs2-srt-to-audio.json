@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "SRT -> dubbed AUDIO, voice cloned, original timing preserved (Fish Audio S2 Pro).\n\n1. Paste your TRANSLATED subtitles into 'Fish S2 SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a clean 10-30s clip of the speaker to 'Reference voice'.\n3. End every cue with punctuation — a line with no full stop is sometimes rendered as nothing at all (fishaudio/fish-speech#1050).\n4. Run. The output language is detected from the SRT text itself.\n\nA cue that comes back empty is retried three times. If it still fails the dub is saved anyway and the server log lists the cue numbers under '!!! no audio for N cue(s)' — check that line before you take the audio into the editor.\n\nOptional: press '🎙 Transcribe' on the dub node to preview the WhisperX transcription of your reference clip in 'ref_text' and fix it before Run. Left empty, the transcript is derived automatically.\n\nKnobs: fit_to_timing (on = lock each line into its SRT slot), max_stretch (cap before audio sounds sped-up)."
+        "SRT -> dubbed AUDIO, voice cloned, original timing preserved (Fish Audio S2 Pro).\n\n1. Paste your TRANSLATED subtitles into 'Fish S2 SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a clean 10-30s clip of the speaker to 'Reference voice'.\n3. End every cue with punctuation — a line with no full stop is sometimes rendered as nothing at all (fishaudio/fish-speech#1050).\n4. Run. The output language is detected from the SRT text itself.\n\nA cue that comes back empty is retried three times. If SOME cues still fail the dub is saved anyway and the server log lists the cue numbers under '!!! no audio for N cue(s)' — check that line before you take the audio into the editor. If EVERY cue fails the node stops with a red error carrying the server's own message, instead of saving a silent file.\n\nOptional: press '🎙 Transcribe' on the dub node to preview the WhisperX transcription of your reference clip in 'ref_text' and fix it before Run. Left empty, the transcript is derived automatically.\n\nKnobs: fit_to_timing (on = lock each line into its SRT slot), max_stretch (cap before audio sounds sped-up)."
       ],
       "color": "#333",
       "bgcolor": "#444"
@@ -39,7 +39,7 @@
         20
       ],
       "size": [
-        310,
+        330,
         140
       ],
       "flags": {},
@@ -69,7 +69,7 @@
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
-        -800,
+        -780,
         20
       ],
       "size": [
@@ -109,7 +109,7 @@
       "type": "SaveAudioMP3",
       "title": "Save dubbed track (MP3)",
       "pos": [
-        -260,
+        -240,
         20
       ],
       "size": [

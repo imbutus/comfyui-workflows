@@ -510,7 +510,7 @@
       "title": "How to use",
       "properties": {},
       "widgets_values": [
-        "## How to use\n\n1. **Prompt Builder** (red) \u2014 type your prompt in the **Description** field (plain language is fine). For layout control, open the **Ideogram 4 editor** and drag boxes to place objects/text in regions.\n2. **Resolution Selector** (orange) \u2014 choose aspect ratio / size.\n3. Press **Run** \u2014 the image appears in **Save Image**.\n\n*\"Image blocked by safety filter\" comes from the model's own safety training, not ComfyUI.*"
+        "## How to use\n\n1. **Prompt Builder** (red) \u2014 type your prompt in the **Description** field (plain language is fine). For layout control, open the **Ideogram 4 editor** and drag boxes to place objects/text in regions.\n2. **Resolution Selector** (orange) \u2014 choose aspect ratio / size.\n3. Press **Run** \u2014 the image appears in **Save Image**."
       ],
       "color": "#333",
       "bgcolor": "#444"

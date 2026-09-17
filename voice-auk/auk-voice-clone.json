@@ -1,0 +1,236 @@
+{
+  "id": "auk-0002-voice-clone",
+  "revision": 0,
+  "last_node_id": 5,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "title": "How to use",
+      "pos": [
+        -1180,
+        -320
+      ],
+      "size": [
+        660,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "VOICE CLONE (AuK zero-shot TTS).\n\n1. Upload a clean reference clip — 10-20 seconds is plenty.\n2. Put the words to speak in the quoted part of 'instruction'.\n3. Set 'generation_seconds' to the length you want.\n\nBudget: the reference and the generated line SHARE one 30-second sequence. A 20s reference leaves 10s of speech, so keep the reference short.\n\nLANGUAGE: English and Chinese only. AuK was trained on those two, and anything else comes back as fluent-sounding nonsense — measured at ~80% word error on Polish upstream, and a Russian dub here came out unintelligible. For other languages use the Fish Audio S2 bundle (dubbing, 80+ languages) or Chatterbox Multilingual (23)."
+      ],
+      "color": "#333",
+      "bgcolor": "#444"
+    },
+    {
+      "id": 2,
+      "type": "AuKModelLoader",
+      "title": "AuK model (base = quality, flash = 4-step)",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -1180,
+        40
+      ],
+      "size": [
+        420,
+        180
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "engine",
+          "type": "AUK_ENGINE",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AuKModelLoader"
+      },
+      "widgets_values": [
+        "ckpts/AuK/auk_base.safetensors",
+        "",
+        "ckpts/Qwen2.5-Omni-3B",
+        "cuda:0",
+        "bf16",
+        false
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LoadAudio",
+      "title": "Reference voice (target timbre)",
+      "pos": [
+        -1180,
+        300
+      ],
+      "size": [
+        340,
+        136
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "voice-narrator.mp3",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 4,
+      "type": "AuKGenerateEdit",
+      "title": "AuK Generate (zero-shot TTS)",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -700,
+        40
+      ],
+      "size": [
+        470,
+        330
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "engine",
+          "type": "AUK_ENGINE",
+          "link": 1
+        },
+        {
+          "name": "input_audio",
+          "type": "AUDIO",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "generated_audio",
+          "type": "AUDIO",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "enhanced_instruction",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "prompt_enhancer_info",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AuKGenerateEdit"
+      },
+      "widgets_values": [
+        "Say the following with the same voice: \"We will hack the whole world with imbutus.com.\"",
+        6.0,
+        false,
+        42,
+        "fixed",
+        32,
+        2.0,
+        -1.0
+      ]
+    },
+    {
+      "id": 5,
+      "type": "SaveAudioMP3",
+      "title": "Save audio (MP3)",
+      "pos": [
+        -180,
+        80
+      ],
+      "size": [
+        290,
+        136
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/auk-clone",
+        "V0"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      4,
+      0,
+      "AUK_ENGINE"
+    ],
+    [
+      3,
+      3,
+      0,
+      4,
+      1,
+      "AUDIO"
+    ],
+    [
+      2,
+      4,
+      0,
+      5,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8,
+      "offset": [
+        1200,
+        400
+      ]
+    }
+  },
+  "version": 0.4
+}

@@ -1,0 +1,189 @@
+{
+  "id": "auk-0001-voice-design",
+  "revision": 0,
+  "last_node_id": 4,
+  "last_link_id": 2,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "title": "How to use",
+      "pos": [
+        -1180,
+        -300
+      ],
+      "size": [
+        660,
+        240
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "VOICE DESIGN (AuK).\n\nNo reference audio — describe the voice in words and AuK speaks it.\n\n1. In 'instruction', keep the two quoted parts: the voice description and the content to speak.\n2. Set 'generation_seconds' to roughly how long the line should be — it is REQUIRED here, because Prompt Enhancer (which would estimate it) calls a cloud API this pod has no keys for.\n3. Pick the checkpoint on the loader: auk_base is 32 steps and best quality, auk_flash is the 4-step distilled one (its steps/cfg are fixed by its recipe).\n\nTip: save the result and feed it into auk-voice-clone as the reference sample.\n\nLANGUAGE: English and Chinese only. AuK was trained on those two, and anything else comes back as fluent-sounding nonsense — measured at ~80% word error on Polish upstream, and a Russian dub here came out unintelligible. For other languages use the Fish Audio S2 bundle (dubbing, 80+ languages) or Chatterbox Multilingual (23)."
+      ],
+      "color": "#333",
+      "bgcolor": "#444"
+    },
+    {
+      "id": 2,
+      "type": "AuKModelLoader",
+      "title": "AuK model (base = quality, flash = 4-step)",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -1180,
+        20
+      ],
+      "size": [
+        420,
+        180
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "engine",
+          "type": "AUK_ENGINE",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AuKModelLoader"
+      },
+      "widgets_values": [
+        "ckpts/AuK/auk_base.safetensors",
+        "",
+        "ckpts/Qwen2.5-Omni-3B",
+        "cuda:0",
+        "bf16",
+        false
+      ]
+    },
+    {
+      "id": 3,
+      "type": "AuKGenerateEdit",
+      "title": "AuK Generate (instruct TTS)",
+      "color": "#322",
+      "bgcolor": "#533",
+      "pos": [
+        -700,
+        20
+      ],
+      "size": [
+        470,
+        330
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "engine",
+          "type": "AUK_ENGINE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "generated_audio",
+          "type": "AUDIO",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "enhanced_instruction",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "prompt_enhancer_info",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AuKGenerateEdit"
+      },
+      "widgets_values": [
+        "Generate speech based on the following description: \"a sultry female voice, late 20s, low and breathy, unhurried\". The content to speak is: \"We will hack the whole world with imbutus.com.\".",
+        6.0,
+        false,
+        42,
+        "fixed",
+        32,
+        2.0,
+        -1.0
+      ]
+    },
+    {
+      "id": 4,
+      "type": "SaveAudioMP3",
+      "title": "Save audio (MP3)",
+      "pos": [
+        -180,
+        60
+      ],
+      "size": [
+        290,
+        136
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/auk-design",
+        "V0"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "AUK_ENGINE"
+    ],
+    [
+      2,
+      3,
+      0,
+      4,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8,
+      "offset": [
+        1200,
+        400
+      ]
+    }
+  },
+  "version": 0.4
+}

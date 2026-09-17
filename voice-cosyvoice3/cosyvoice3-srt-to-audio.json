@@ -23,7 +23,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "SRT -> dubbed AUDIO, voice cloned, original timing preserved.\n\n1. Paste your TRANSLATED subtitles into 'CosyVoice SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a SHORT clean clip (3-15s, no music) of the speaker to 'Reference voice' \u2014 CosyVoice clones this timbre.\n3. Pick language (auto works; en/zh are reliable).\n4. Run. Each line is synthesized and time-stretched to fit its slot, so the output lines up with your video.\n\nKnobs: fit_to_timing (on = lock to SRT timing), max_stretch (cap before audio sounds sped-up), speed.\n\nLanguages: EN and ZH are solid. Other officially supported languages can be less reliable in this model \u2014 prefer the Qwen3-TTS bundle for those.\n\nFirst run downloads the CosyVoice model (~GB)."
+        "SRT -> dubbed AUDIO, voice cloned, original timing preserved.\n\n1. Paste your TRANSLATED subtitles into 'CosyVoice SRT Dub' (keep the same timestamps as the source SRT, only the text is translated).\n2. Upload a SHORT clean clip (3-15s, no music) of the speaker to 'Reference voice' — CosyVoice clones this timbre.\n3. Pick language (auto works; en/zh are reliable).\n4. Run. Each line is synthesized and time-stretched to fit its slot, so the output lines up with your video.\n\nKnobs: fit_to_timing (on = lock to SRT timing), max_stretch (cap before audio sounds sped-up), speed.\n\nLanguages: EN and ZH are solid. Other officially supported languages can be less reliable in this model — prefer the Qwen3-TTS bundle for those.\n\nFirst run downloads the CosyVoice model (~GB)."
       ],
       "color": "#333",
       "bgcolor": "#444"
@@ -67,7 +67,7 @@
     {
       "id": 2,
       "type": "LoadAudio",
-      "title": "Reference voice (target timbre) \u2014 SHORT 3-15s",
+      "title": "Reference voice (target timbre) — SHORT 3-15s",
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
@@ -75,7 +75,7 @@
         300
       ],
       "size": [
-        310,
+        330,
         140
       ],
       "flags": {},
@@ -105,7 +105,7 @@
       "color": "#322",
       "bgcolor": "#533",
       "pos": [
-        -800,
+        -780,
         40
       ],
       "size": [
@@ -153,7 +153,7 @@
       "type": "SaveAudioMP3",
       "title": "Save dubbed track (MP3)",
       "pos": [
-        -260,
+        -240,
         40
       ],
       "size": [
